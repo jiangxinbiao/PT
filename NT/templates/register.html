@@ -1,0 +1,82 @@
+﻿{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>欢迎注册</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
+<link href="{% static 'longin/css/style.css' %}" rel='stylesheet' type='text/css' />
+<script src="{% static 'register/js/jquery.js' %}"></script>
+</head>
+<body>
+<script type="text/javascript">$(document).ready(function(c) {
+            $('.close').on('click', function(c){
+                $('.login-form').fadeOut('slow', function(c){
+                    $('.login-form').remove();
+                });
+            });
+        });
+    $(function () {
+       $('#password2').blur(function () {
+           if($("#password").val()!=$("#password2").val()){
+               alert("两次密码不一致！")
+           }
+       })
+    });
+    $(document).ready(function (){
+        $("#login").click(function () {
+            $.post(
+                    "{% url 'Register' %}",
+                    {
+                    "username":$('#username').val(),
+                    "password":$('#password').val(),
+                        'email':$('#email').val(),
+                    },
+                function (data,status) {
+                    if (data.code == 1000){
+                        alert(data.msg)
+                       window.location.href = '{% url "login" %}';
+                    }else {
+                        alert(data.msg)
+                    }
+                },
+                    "json"
+                  );
+        });
+    });
+</script>
+ <!--SIGN UP-->
+ <h1>欢迎注册！</h1>
+<div class="login-form">
+	<div class="close"> </div>
+		<div class="head-info">
+			<label class="lbl-1"> </label>
+			<label class="lbl-2"> </label>
+			<label class="lbl-3"> </label>
+		</div>
+			<div class="clear"> </div>
+	<div class="avtar">
+		<img src="{% static 'longin/images/avtar.png' %}" />
+	</div>
+			<form>
+                {% csrf_token %}
+
+                    <input class="text2" name="username" id="username" placeholder="用户名">
+                    <input type="password" name="password" id="password" placeholder="密码">
+                    <input type="password" name="password2" id="password2" placeholder="确认密码">
+					<input type="email" name="email" id="email" placeholder="邮箱">
+			</form>
+
+    <div id="errormessage"></div>
+	<div class="signin">
+{#        <button  href="register.html" id="IN" type="button">还未注册</button>#}
+        <button  id="IN" ><a href="{% url 'login' %}">已经注册</a></button>
+		<input id="login" type="submit" value="立即注册" >
+	</div>
+</div>
+ <div class="copy-rights">
+					<p><a href="http://www.sucaihuo.com/" target="_blank" title=""></a></p>
+			</div>
+
+</body>
+</html>

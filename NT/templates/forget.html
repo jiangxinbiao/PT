@@ -1,0 +1,75 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html>
+<head>
+<title>发送邮箱验证</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="keywords" content="Flat Dark Web Login Form Responsive Templates, Iphone Widget Template, Smartphone login forms,Login form, Widget Template, Responsive Templates, a Ipad 404 Templates, Flat Responsive Templates" />
+<link href="{% static 'longin/css/style.css' %}" rel='stylesheet' type='text/css' />
+<script src="{% static 'register/js/jquery.js' %}"></script>
+
+</head>
+<body>
+<script type="text/javascript">
+    $(document).ready(function(c) {
+            $('.close').on('click', function(c){
+                $('.login-form').fadeOut('slow', function(c){
+                    $('.login-form').remove();
+                });
+            });
+        });
+    $(document).ready(function (){
+       $('#username').blur(function () {
+           if ($("#username").val() == null) {
+               alert("用户名不能为空！")
+               return false
+           }
+       })
+       });
+    $(document).ready(function (){
+        $("#login").click(function () {
+            $.post(
+                    "{% url 'UserPut' %}",
+                    {
+                    "username":$('#username').val(),
+                       "email":$('#email').val()
+                    },
+                function (data,status) {
+                    console.log(data);
+                    if (data.code == 1000){
+                        window.location.href = '{% url "index" %}';
+                       alert("邮件发送成功！请回到邮箱点击链接修改密码！");
+                    }else {
+                        alert(data.msg)
+                    }
+                    },
+                    "json"
+                  );
+        });
+    });
+</script>
+ <!--SIGN UP-->
+ <h1>发送邮箱验证</h1>
+<div class="login-form">
+
+			<div class="clear"> </div>
+	<div class="avtar">
+		<img src="{% static 'longin/images/avtar.png' %}" />
+	</div>
+        <span  id="errormsg">{{ data.msg }}</span>
+        <form>
+            {% csrf_token %}
+                <input type="text" name="username" id="username" placeholder="用户名">
+                <input type="email" name="email" id="email" placeholder="邮箱">
+        </form>
+    <div id="errormessage"></div>
+	<div class="signin">
+		<input id="login" type="submit" value="发送邮箱验证" >
+	</div>
+</div>
+ <div class="copy-rights">
+					<p><a href="http://www.sucaihuo.com/" target="_blank" title=""></a></p>
+			</div>
+
+</body>
+</html>

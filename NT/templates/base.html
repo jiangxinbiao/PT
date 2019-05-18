@@ -1,0 +1,36 @@
+{% load staticfiles %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <link href="{% static '/css/base.css'%}" rel="stylesheet">
+    <link href="{% static '/css/index.css'%}" rel="stylesheet">
+    <link href="{% static '/css/m.css'%}" rel="stylesheet">
+    <script src="{% static '/js/jquery.min.js'%}" ></script>
+    <script src="{% static '/js/jquery.easyfader.min.js' %}"></script>
+    <script src="{% static '/js/hc-sticky.js'%}"></script>
+    <script src="{% static '/js/comm.js'%}"></script>
+    <script src="{% static '/js/scrollReveal.js'%}"></script>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+    <meta name="keywords" content="个人博客"/>
+    <meta name="description" content="个人博客"/>
+
+</head>
+<body>
+<!--页面头部-->
+{% include "header.html" %}
+
+<!-- 导航栏 -->
+{% include "nav.html" %}
+
+<!-- 文章区域 -->
+<div class="articlecontent">
+    <div class="contents">
+        {% block content %}
+        {% endblock %}
+    </div>
+</div>
+
+<!-- 页面底部 -->
+{% include "floot.html" %}
+</body>
+</html>
